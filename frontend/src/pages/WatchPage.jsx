@@ -23,7 +23,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getTrailers = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/trailers`);
+				const res = await axios.get(`https://netflix-jxi6.onrender.com/api/v1/${contentType}/${id}/trailers`);
 				setTrailers(res.data.trailers);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -38,7 +38,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getSimilarContent = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
+				const res = await axios.get(`https://netflix-jxi6.onrender.com/api/v1/${contentType}/${id}/similar`);
 				setSimilarContent(res.data.similar);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -53,7 +53,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getContentDetails = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+				const res = await axios.get(`https://netflix-jxi6.onrender.com/api/v1/${contentType}/${id}/details`);
 				setContent(res.data.content);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -186,7 +186,7 @@ const WatchPage = () => {
 							{similarContent.map((content) => {
 								if (content.poster_path === null) return null;
 								return (
-									<Link key={content.id} to={`/watch/${content.id}`} className='w-52 flex-none'>
+									<Link key={content.id} to={`https://netflix-jxi6.onrender.com/watch/${content.id}`} className='w-52 flex-none'>
 										<img
 											src={SMALL_IMG_BASE_URL + content.poster_path}
 											alt='Poster path'
