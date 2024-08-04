@@ -18,24 +18,27 @@ const __dirname = path.resolve();
 
 app.use(express.json()); // will allow us to parse req.body
 app.use(cookieParser());
-const allowedOrigins = [
-	"https://cgpa-leaderboad.vercel.app",
-	"https://nitjsr.vercel.app",
-	"https://cgpanitjsr.vercel.app",
-	"https://cgpa-leaderboard.vercel.app",
-	"http://localhost:5173"
-  ];
-  
-  app.use(cors({
-	origin: function (origin, callback) {
-	  if (allowedOrigins.includes(origin) || !origin) {
-		callback(null, true);
-	  } else {
-		callback(new Error('Not allowed by CORS'));
-	  }
-	},
-	methods: ["GET" , "POST"]
-  }));
+// const allowedOrigins = [
+// 	"https://cgpa-leaderboad.vercel.app",
+// 	"https://nitjsr.vercel.app",
+// 	"https://cgpanitjsr.vercel.app",
+// 	"https://cgpa-leaderboard.vercel.app",
+// 	"http://localhost:5173"
+// ];
+
+app.use(
+	cors({
+	  origin: [
+		"https://main--padhlo.netlify.app",
+		"http://localhost:3001",
+		"https://frontend-padhlo.onrender.com",
+		"https://padhlo.netlify.app",
+		"https://frontend-padhlo.vercel.app",
+		"http://localhost:5173"
+	  ],
+	  credentials: true,
+	})
+  );
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/movie", protectRoute, movieRoutes);
@@ -43,9 +46,9 @@ app.use("/api/v1/tv", protectRoute, tvRoutes);
 app.use("/api/v1/search", protectRoute, searchRoutes);
 
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
 	res.send("kya aapke tooth paste mein namak hai ? ")
-  })
+})
 app.listen(PORT, () => {
 	console.log("Server started at http://localhost:" + PORT);
 	connectDB();
