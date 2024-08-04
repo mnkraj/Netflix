@@ -28,18 +28,18 @@ app.use(cookieParser());
 
 app.use(
 	cors({
-	  origin: [
-		"https://main--padhlo.netlify.app",
-		"http://localhost:3001",
-		"https://frontend-padhlo.onrender.com",
-		"https://padhlo.netlify.app",
-		"https://frontend-padhlo.vercel.app",
-		"http://localhost:5173"
-	  ],
-	  credentials: true,
+		origin: [
+			"https://main--padhlo.netlify.app",
+			"http://localhost:3001",
+			"https://frontend-padhlo.onrender.com",
+			"https://padhlo.netlify.app",
+			"https://frontend-padhlo.vercel.app",
+			"http://localhost:5173"
+		],
+		credentials: true,
 	})
-  );
-
+);
+app.options('*', cors()); // Enable pre-flight across-the-board
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/movie", protectRoute, movieRoutes);
 app.use("/api/v1/tv", protectRoute, tvRoutes);
