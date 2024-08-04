@@ -19,19 +19,23 @@ const __dirname = path.resolve();
 app.use(express.json()); // will allow us to parse req.body
 app.use(cookieParser());
 const allowedOrigins = [
-	"http://localhost:5173"
-  ];
-  
-  app.use(cors({
+	"http://localhost:5173",
+	"https://your-production-frontend-domain.com" // Add your production frontend domain here
+];
+
+app.use(cors({
 	origin: function (origin, callback) {
-	  if (allowedOrigins.includes(origin) || !origin) {
-		callback(null, true);
-	  } else {
-		callback(new Error('Not allowed by CORS'));
-	  }
+		// Allow requests with no origin (like mobile apps, curl requests, etc.)
+		if (allowedOrigins.includes(origin) || !origin) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
 	},
-	methods: "GET"
-  }));
+	methods: ["GET", "POST", "PUT", "DELETE"], // List all HTTP methods you want to allow
+	credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
+}));
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/movie", protectRoute, movieRoutes);
 app.use("/api/v1/tv", protectRoute, tvRoutes);
