@@ -7,7 +7,11 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "http://localhost:5000",
+				target: "http://netflix-9o56.onrender.com",
+				// Set to true if using a valid SSL certificate
+				headers: {
+					Host: 'netflix-9o56.onrender.com' // Ensure the Host header is correct
+				}
 			},
 		},
 	},
